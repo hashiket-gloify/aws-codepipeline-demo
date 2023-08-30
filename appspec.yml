@@ -1,12 +1,29 @@
 version: 0.0
 os: linux
 
+files:
+- source: /
+destination: /home/ubuntu/aws
+overwrite: true
+file_exists_behavior: OVERWRITE
+
+permissions:
+- object: /home/ubuntu/scripts
+pattern: "**"
+owner: ubuntu
+group: ubuntu
+mode: 777
+type :
+- file
+
+
 hooks:
-  ApplicationStop:
-    - location: scripts/stop_container.sh
-      timeout: 300
-      runas: root
-  AfterInstall:
-    - location: scripts/start_container.sh
-      timeout: 300
-      runas: root
+
+BeforeInstall:
+
+AfterInstall:
+
+ApplicationStart:
+- location: scripts/app_start.sh
+timeout: 2500
+runas: ubuntu
